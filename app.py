@@ -2,8 +2,11 @@ import streamlit as st
 from dotenv import load_dotenv
 from PyPDF2 import PdfReader
 from langchain.text_splitter import CharacterTextSplitter
-from langchain.embeddings import HuggingFaceInstructEmbeddings
-from langchain.vectorstores import FAISS
+from langchain_community.vectorstores import FAISS
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
+import nest_asyncio
+
+nest_asyncio.apply()
 
 def getPdfText(pdfDocs):
     text = ""
@@ -24,7 +27,7 @@ def getTextChunks(rawText):
     return chunks
 
 def getVectorstore(textChunks):
-    embeddings = HuggingFaceInstructEmbeddings(model_name = "hkunlp/instructor-xl")
+    embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
     vectorstore = FAISS.from_texts(texts = textChunks, embedding = embeddings)
 
     return vectorstore
