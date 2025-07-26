@@ -7,3 +7,5 @@ faiss-cpu
 huggingface-hub
 InstructorEmbedding
 sentence_transformers
+langchain_google_genai
+nest_asyncio
